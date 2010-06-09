@@ -9,7 +9,7 @@ our @EXPORT_OK = qw(render_xslate render_ok);
 
 our $XSLATE = Text::Xslate->new(
     syntax   => 'TTerse',
-    function => { Text::Xslate::Bridge::TT2Like->methods }
+    module   => [ 'Text::Xslate::Bridge::TT2Like' ],
 );
 
 sub render_xslate {

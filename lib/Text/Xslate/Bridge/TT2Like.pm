@@ -494,12 +494,11 @@ Text::Xslate::Bridge::TT2Like - TT2 Variable Method Clone For Text::Xslate
 =head1 SYNOPSIS
 
     use Text::Xslate;
-    use Text::Xslate::Bridge::TT2Like;
 
     my $xslate = Text::Xslate->new(
-        funcitons => {
-            Text::Xslate::Bridge::TT2Like->methods
-        },
+        module => [
+            'Text::Xslate::Bridge::TT2Like'
+        ],
     );
 
     # Note that all methods require a set of parenthesis to be

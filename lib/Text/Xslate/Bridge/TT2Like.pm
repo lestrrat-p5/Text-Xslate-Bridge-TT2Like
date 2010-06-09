@@ -520,7 +520,7 @@ Text::Xslate namespace, such that you can use them on your variables.
 
 The only difference between this module and Text::Xslate::Bridge::TT2 is that
 Bridge::TT2 uses Template::Toolkit underneath, while this module is independent
-of Template::Toolkit.
+of Template::Toolkit and therefore does not require TT to be installed
 
 =head1 ACKNOWLEDGEMENT
 
@@ -528,6 +528,13 @@ Original code was taken from Template::VMethods by Andy Wardley.
 
 =head1 AUTHOR
 
-Daisuke Maki C<< <daisuke@endeworks.jp> >>
+Copyright (c) 2010 Daisuke Maki C<< <daisuke@endeworks.jp> >>
+
+=head1 LICENSE 
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
 
 =cut

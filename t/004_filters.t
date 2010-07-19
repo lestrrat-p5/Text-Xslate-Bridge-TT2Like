@@ -22,5 +22,11 @@ render_ok '[% "FOO" | lcfirst %]', undef, "fOO";
 render_ok '[% "  FOO  " | trim %]', undef, "FOO";
 render_ok '[% "  I am    a  pen.  " | collapse %]', undef, "I am a pen.";
 
+render_ok '[% "foo\nbar" | indent("me> ") %]', undef, "me&gt; foo\nme&gt; bar";
+render_ok '[% "7" | format("%03d") %]', undef, "007";
+render_ok '[% "7" | repeat(3) %]', undef, "777";
+render_ok '[% "I am a pen." | replace("pen", "John") %]', undef, "I am a John.";
+render_ok '[% "pen." | remove("n") %]', undef, "pe.";
+
 
 done_testing();

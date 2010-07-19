@@ -85,6 +85,12 @@ __PACKAGE__->bridge(
         'null'            => sub { return '' },
         'collapse'        => sub { for ($_[0]) { s/^\s+//; s/\s+$//; s/\s+/ /g };
                                 $_[0] },
+        'indent'      => \&indent_filter_factory,
+        'format'      => \&format_filter_factory,
+        'truncate'    => \&truncate_filter_factory,
+        'repeat'      => \&repeat_filter_factory,
+        'replace'     => \&replace_filter_factory,
+        'remove'      => \&remove_filter_factory,
     },
 );
 
@@ -533,6 +539,65 @@ sub html_line_break  {
     my $text = shift;
     $text =~ s|(\r?\n)|<br />$1|g;
     return $text;
+}
+
+sub indent_filter_factory {
+    my ($pad) = @_;
+    $pad = 4 unless defined $pad;
+    $pad = ' ' x $pad if $pad =~ /^\d+$/;
+
+    return sub {
+        my $text = shift;
+        $text = '' unless defined $text;
+        $text =~ s/^/$pad/mg;
+        return $text;
+    }
+}
+
+sub format_filter_factory {
+    my ($format) = @_;
+    $format = '%s' unless defined $format;
+
+    return sub {
+        my $text = shift;
+        $text = '' unless defined $text;
+        return join("\n", map{ sprintf($format, $_) } split(/\n/, $text));
+    }
+}
+
+sub repeat_filter_factory {
+    my ($iter) = @_;
+    $iter = 1 unless defined $iter and length $iter;
+
+    return sub {
+        my $text = shift;
+        $text = '' unless defined $text;
+        return join('\n', $text) x $iter;
+    }
+}
+
+sub replace_filter_factory {
+    my ($search, $replace) = @_;
+    $search = '' unless defined $search;
+    $replace = '' unless defined $replace;
+
+    return sub {
+        my $text = shift;
+        $text = '' unless defined $text;
+        $text =~ s/$search/$replace/g;
+        return $text;
+    }
+}
+
+sub remove_filter_factory {
+    my ($search) = @_;
+
+    return sub {
+        my $text = shift;
+        $text = '' unless defined $text;
+        $text =~ s/$search//g;
+        return $text;
+    }
 }
 
 1;

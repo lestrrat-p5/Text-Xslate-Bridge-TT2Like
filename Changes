@@ -1,5 +1,9 @@
 Changes
 =======
 
+0.00002 - 19 Jul 2010
+    * Add filter support (tokuhirom)
+    * Update Text::Xslate dependency
+
 0.00001 - 09 Jun 2010
     * Initial release

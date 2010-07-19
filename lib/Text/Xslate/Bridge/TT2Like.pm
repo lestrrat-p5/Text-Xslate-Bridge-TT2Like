@@ -7,7 +7,7 @@ use 5.008001;
 use Scalar::Util 'blessed';
 use URI::Escape qw/uri_escape/;
 
-our $VERSION = '0.00001';
+our $VERSION = '0.00002';
 
 __PACKAGE__->bridge(
     scalar => {

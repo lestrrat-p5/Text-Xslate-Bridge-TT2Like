@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00003 - 19 Jul 2010
+    * Add dynamic filter support (tokuhirom)
+
 0.00002 - 19 Jul 2010
     * Add filter support (tokuhirom)
     * Update Text::Xslate dependency

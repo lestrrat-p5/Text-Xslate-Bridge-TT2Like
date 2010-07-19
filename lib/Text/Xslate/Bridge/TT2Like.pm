@@ -2,6 +2,7 @@ package Text::Xslate::Bridge::TT2Like;
 use strict;
 use warnings;
 use base qw(Text::Xslate::Bridge);
+use 5.008001;
 
 use Scalar::Util 'blessed';
 

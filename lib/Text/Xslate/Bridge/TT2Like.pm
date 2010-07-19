@@ -5,6 +5,7 @@ use base qw(Text::Xslate::Bridge);
 use 5.008001;
 
 use Scalar::Util 'blessed';
+use URI::Escape qw/uri_escape/;
 
 our $VERSION = '0.00001';
 
@@ -65,7 +66,26 @@ __PACKAGE__->bridge(
         merge   => \&list_merge,
         slice   => \&list_slice,
         splice  => \&list_splice,
-    }
+    },
+    function => {
+        # 'html'            => \&html_filter, # Xslate has builtin filter for html escape, and it is not overridable.
+        'html_para'       => \&html_paragraph,
+        'html_break'      => \&html_para_break,
+        'html_para_break' => \&html_para_break,
+        'html_line_break' => \&html_line_break,
+        'xml'             => \&xml_filter,
+        'uri'             => \&uri_escape,
+        'url'             => \&uri_escape,
+        'upper'           => sub { uc $_[0] },
+        'lower'           => sub { lc $_[0] },
+        'ucfirst'         => sub { ucfirst $_[0] },
+        'lcfirst'         => sub { lcfirst $_[0] },
+        # 'stderr'          => sub { print STDERR @_; return '' }, # anyone want this??
+        'trim'            => sub { for ($_[0]) { s/^\s+//; s/\s+$// }; $_[0] },
+        'null'            => sub { return '' },
+        'collapse'        => sub { for ($_[0]) { s/^\s+//; s/\s+$//; s/\s+/ /g };
+                                $_[0] },
+    },
 );
 
 sub text_item {
@@ -484,6 +504,37 @@ sub list_splice {
     }
 }
 
+sub xml_filter {
+    my $text = shift;
+    for ($text) {
+        s/&/&amp;/g;
+        s/</&lt;/g;
+        s/>/&gt;/g;
+        s/"/&quot;/g;
+        s/'/&apos;/g;
+    }
+    return $text;
+}
+
+sub html_paragraph  {
+    my $text = shift;
+    return "<p>\n" 
+           . join("\n</p>\n\n<p>\n", split(/(?:\r?\n){2,}/, $text))
+           . "</p>\n";
+}
+
+sub html_para_break  {
+    my $text = shift;
+    $text =~ s|(\r?\n){2,}|$1<br />$1<br />$1|g;
+    return $text;
+}
+
+sub html_line_break  {
+    my $text = shift;
+    $text =~ s|(\r?\n)|<br />$1|g;
+    return $text;
+}
+
 1;
 
 __END__
@@ -525,7 +576,7 @@ of Template::Toolkit and therefore does not require TT to be installed
 
 =head1 ACKNOWLEDGEMENT
 
-Original code was taken from Template::VMethods by Andy Wardley.
+Original code was taken from Template::VMethods, Template::Filters by Andy Wardley.
 
 =head1 AUTHOR
 

@@ -1,13 +1,13 @@
 package Text::Xslate::Bridge::TT2Like;
+use 5.008001;
 use strict;
 use warnings;
 use base qw(Text::Xslate::Bridge);
-use 5.008001;
-
-use Scalar::Util 'blessed';
-use URI::Escape qw/uri_escape/;
 
 our $VERSION = '0.00003';
+
+use Scalar::Util 'blessed';
+use Text::Xslate qw(uri_escape);
 
 __PACKAGE__->bridge(
     scalar => {
@@ -74,7 +74,7 @@ __PACKAGE__->bridge(
         'html_para_break' => \&html_para_break,
         'html_line_break' => \&html_line_break,
         'xml'             => \&xml_filter,
-        'uri'             => \&uri_escape,
+        # 'uri'             => \&uri_escape, # builtin from version 0.1052
         'url'             => \&uri_escape,
         'upper'           => sub { uc $_[0] },
         'lower'           => sub { lc $_[0] },

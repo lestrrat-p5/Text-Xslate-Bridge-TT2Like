@@ -3,8 +3,8 @@ Changes
 
 0.00004 - 1 Aug 2010
     * Update Text::Xslate dependency
-    * Remove uri() and url(), which have been builtins from Xslate 0.1052
-      (gfx)
+    * Remove uri() which is a builtin filter since Xslate 0.1052 (gfx)
+    * Use uri_escape from Xslate 0.1052 as the background for url filter (gfx)
 
 0.00003 - 19 Jul 2010
     * Add dynamic filter support (tokuhirom)

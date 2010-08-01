@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use base qw(Text::Xslate::Bridge);
 
-our $VERSION = '0.00003';
+our $VERSION = '0.00004';
 
 use Scalar::Util 'blessed';
 use Text::Xslate qw(uri_escape);

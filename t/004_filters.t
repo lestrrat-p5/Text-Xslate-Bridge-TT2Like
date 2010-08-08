@@ -27,6 +27,7 @@ render_ok '[% "7" | format("%03d") %]', undef, "007";
 render_ok '[% "7" | repeat(3) %]', undef, "777";
 render_ok '[% "I am a pen." | replace("pen", "John") %]', undef, "I am a John.";
 render_ok '[% "pen." | remove("n") %]', undef, "pe.";
+render_ok '[% "aiueoaiueo" | truncate(5) %]', undef, "ai...";
 
 
 done_testing();

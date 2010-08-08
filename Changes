@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00005 - 9 Aug 2010
+    * Add truncate() filter.
+
 0.00004 - 1 Aug 2010
     * Update Text::Xslate dependency
     * Remove uri() which is a builtin filter since Xslate 0.1052 (gfx)

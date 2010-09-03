@@ -7,121 +7,121 @@ use base qw(Text::Xslate::Bridge);
 our $VERSION = '0.00005';
 
 use Scalar::Util 'blessed';
-use Text::Xslate qw(uri_escape);
+use Text::Xslate;
 
 our $TRUNCATE_LENGTH = 32;
 our $TRUNCATE_ADDON  = '...';
 
 __PACKAGE__->bridge(
     scalar => {
-        item    => \&text_item,
-        list    => \&text_list,
-        hash    => \&text_hash,
-        length  => \&text_length,
-        size    => \&text_size,
-        defined => \&text_defined,
-        match   => \&text_match,
-        search  => \&text_search,
-        repeat  => \&text_repeat,
-        replace => \&text_replace,
-        remove  => \&text_remove,
-        split   => \&text_split,
-        chunk   => \&text_chunk,
-        substr  => \&text_substr,
+        item    => \&_text_item,
+        list    => \&_text_list,
+        hash    => \&_text_hash,
+        length  => \&_text_length,
+        size    => \&_text_size,
+        defined => \&_text_defined,
+        match   => \&_text_match,
+        search  => \&_text_search,
+        repeat  => \&_text_repeat,
+        replace => \&_text_replace,
+        remove  => \&_text_remove,
+        split   => \&_text_split,
+        chunk   => \&_text_chunk,
+        substr  => \&_text_substr,
     },
     hash => {
-        item    => \&hash_item,
-        hash    => \&hash_hash,
-        size    => \&hash_size,
-        each    => \&hash_each,
-        keys    => \&hash_keys,
-        values  => \&hash_values,
-        items   => \&hash_items,
-        pairs   => \&hash_pairs,
-        list    => \&hash_list,
-        exists  => \&hash_exists,
-        defined => \&hash_defined,
-        delete  => \&hash_delete,
-        import  => \&hash_import,
-        sort    => \&hash_sort,
-        nsort   => \&hash_nsort,
+        item    => \&_hash_item,
+        hash    => \&_hash_hash,
+        size    => \&_hash_size,
+        each    => \&_hash_each,
+        keys    => \&_hash_keys,
+        values  => \&_hash_values,
+        items   => \&_hash_items,
+        pairs   => \&_hash_pairs,
+        list    => \&_hash_list,
+        exists  => \&_hash_exists,
+        defined => \&_hash_defined,
+        delete  => \&_hash_delete,
+        import  => \&_hash_import,
+        sort    => \&_hash_sort,
+        nsort   => \&_hash_nsort,
     },
     array => {
-        item    => \&list_item,
-        list    => \&list_list,
-        hash    => \&list_hash,
-        push    => \&list_push,
-        pop     => \&list_pop,
-        unshift => \&list_unshift,
-        shift   => \&list_shift,
-        max     => \&list_max,
-        size    => \&list_size,
-        defined => \&list_defined,
-        first   => \&list_first,
-        last    => \&list_last,
-        reverse => \&list_reverse,
-        grep    => \&list_grep,
-        join    => \&list_join,
-        sort    => \&list_sort,
-        nsort   => \&list_nsort,
-        unique  => \&list_unique,
-        import  => \&list_import,
-        merge   => \&list_merge,
-        slice   => \&list_slice,
-        splice  => \&list_splice,
+        item    => \&_list_item,
+        list    => \&_list_list,
+        hash    => \&_list_hash,
+        push    => \&_list_push,
+        pop     => \&_list_pop,
+        unshift => \&_list_unshift,
+        shift   => \&_list_shift,
+        max     => \&_list_max,
+        size    => \&_list_size,
+        defined => \&_list_defined,
+        first   => \&_list_first,
+        last    => \&_list_last,
+        reverse => \&_list_reverse,
+        grep    => \&_list_grep,
+        join    => \&_list_join,
+        sort    => \&_list_sort,
+        nsort   => \&_list_nsort,
+        unique  => \&_list_unique,
+        import  => \&_list_import,
+        merge   => \&_list_merge,
+        slice   => \&_list_slice,
+        splice  => \&_list_splice,
     },
     function => {
-        # 'html'            => \&html_filter, # Xslate has builtin filter for html escape, and it is not overridable.
-        'html_para'       => \&html_paragraph,
-        'html_break'      => \&html_para_break,
-        'html_para_break' => \&html_para_break,
-        'html_line_break' => \&html_line_break,
-        'xml'             => \&xml_filter,
+        # 'html'            => \&_html_filter, # Xslate has builtin filter for html escape, and it is not overridable.
+        html_para       => \&_html_paragraph,
+        html_break      => \&_html_para_break,
+        html_para_break => \&_html_para_break,
+        html_line_break => \&_html_line_break,
+        xml             => \&_xml_filter,
         # 'uri'             => \&uri_escape, # builtin from version 0.1052
-        'url'             => \&uri_escape,
-        'upper'           => sub { uc $_[0] },
-        'lower'           => sub { lc $_[0] },
-        'ucfirst'         => sub { ucfirst $_[0] },
-        'lcfirst'         => sub { lcfirst $_[0] },
+        url             => \&Text::Xslate::uri_escape,
+        upper           => sub { uc $_[0] },
+        lower           => sub { lc $_[0] },
+        ucfirst         => sub { ucfirst $_[0] },
+        lcfirst         => sub { lcfirst $_[0] },
         # 'stderr'          => sub { print STDERR @_; return '' }, # anyone want this??
-        'trim'            => sub { for ($_[0]) { s/^\s+//; s/\s+$// }; $_[0] },
-        'null'            => sub { return '' },
-        'collapse'        => sub { for ($_[0]) { s/^\s+//; s/\s+$//; s/\s+/ /g };
+        trim            => sub { for ($_[0]) { s/^\s+//; s/\s+$// }; $_[0] },
+        null            => sub { return '' },
+        collapse        => sub { for ($_[0]) { s/^\s+//; s/\s+$//; s/\s+/ /g };
                                 $_[0] },
-        'indent'      => \&indent_filter_factory,
-        'format'      => \&format_filter_factory,
-        'truncate'    => \&truncate_filter_factory,
-        'repeat'      => \&repeat_filter_factory,
-        'replace'     => \&replace_filter_factory,
-        'remove'      => \&remove_filter_factory,
+        indent      => \&_indent_filter_factory,
+        format      => \&_format_filter_factory,
+        truncate    => \&_truncate_filter_factory,
+        repeat      => \&_repeat_filter_factory,
+        replace     => \&_replace_filter_factory,
+        remove      => \&_remove_filter_factory,
     },
 );
 
-sub text_item {
+sub _text_item {
     $_[0];
 }
 
-sub text_list { 
+sub _text_list { 
     [ $_[0] ];
 }
 
-sub text_hash { 
+sub _text_hash { 
     { value => $_[0] };
 }
 
-sub text_length { 
+sub _text_length { 
     length $_[0];
 }
 
-sub text_size { 
+sub _text_size { 
     return 1;
 }
 
-sub text_defined { 
+sub _text_defined { 
     return 1;
 }
 
-sub text_match {
+sub _text_match {
     my ($str, $search, $global) = @_;
     return $str unless defined $str and defined $search;
     my @matches = $global ? ($str =~ /$search/g)
@@ -129,13 +129,13 @@ sub text_match {
     return @matches ? \@matches : '';
 }
 
-sub text_search { 
+sub _text_search { 
     my ($str, $pattern) = @_;
     return $str unless defined $str and defined $pattern;
     return $str =~ /$pattern/;
 }
 
-sub text_repeat { 
+sub _text_repeat { 
     my ($str, $count) = @_;
     $str = '' unless defined $str;  
     return '' unless $count;
@@ -143,7 +143,7 @@ sub text_repeat {
     return $str x $count;
 }
 
-sub text_replace {
+sub _text_replace {
     my ($text, $pattern, $replace, $global) = @_;
     $text    = '' unless defined $text;
     $pattern = '' unless defined $pattern;
@@ -179,14 +179,14 @@ sub text_replace {
     return $text;
 }
 
-sub text_remove { 
+sub _text_remove { 
     my ($str, $search) = @_;
     return $str unless defined $str and defined $search;
     $str =~ s/$search//g;
     return $str;
 }
     
-sub text_split {
+sub _text_split {
     my ($str, $split, $limit) = @_;
     $str = '' unless defined $str;
     
@@ -207,7 +207,7 @@ sub text_split {
     }
 }
 
-sub text_chunk {
+sub _text_chunk {
     my ($string, $size) = @_;
     my @list;
     $size ||= 1;
@@ -226,7 +226,7 @@ sub text_chunk {
     return \@list;
 }
 
-sub text_substr {
+sub _text_substr {
     my ($text, $offset, $length, $replacement) = @_;
     $offset ||= 0;
     
@@ -244,38 +244,38 @@ sub text_substr {
     }
 }
 
-sub hash_item { 
+sub _hash_item { 
     my ($hash, $item) = @_; 
     $item = '' unless defined $item;
     $hash->{ $item };
 }
 
-sub hash_hash { 
+sub _hash_hash { 
     $_[0];
 }
 
-sub hash_size { 
+sub _hash_size { 
     scalar keys %{$_[0]};
 }
 
-sub hash_each { 
+sub _hash_each { 
     # this will be changed in TT3 to do what hash_pairs() does
     [ %{ $_[0] } ];
 }
 
-sub hash_keys { 
+sub _hash_keys { 
     [ keys   %{ $_[0] } ];
 }
 
-sub hash_values { 
+sub _hash_values { 
     [ values %{ $_[0] } ];
 }
 
-sub hash_items {
+sub _hash_items {
     [ %{ $_[0] } ];
 }
 
-sub hash_pairs { 
+sub _hash_pairs { 
     [ map { 
         { key => $_ , value => $_[0]->{ $_ } } 
       }
@@ -283,7 +283,7 @@ sub hash_pairs {
     ];
 }
 
-sub hash_list { 
+sub _hash_list { 
     my ($hash, $what) = @_;  
     $what ||= '';
     return ($what eq 'keys')   ? [   keys %$hash ]
@@ -296,48 +296,48 @@ sub hash_list {
           ];
 }
 
-sub hash_exists { 
+sub _hash_exists { 
     exists $_[0]->{ $_[1] };
 }
 
-sub hash_defined { 
+sub _hash_defined { 
     # return the item requested, or 1 if no argument 
     # to indicate that the hash itself is defined
     my $hash = shift;
     return @_ ? defined $hash->{ $_[0] } : 1;
 }
 
-sub hash_delete { 
+sub _hash_delete { 
     my $hash = shift; 
     delete $hash->{ $_ } for @_;
 }
 
-sub hash_import { 
+sub _hash_import { 
     my ($hash, $imp) = @_;
     $imp = {} unless ref $imp eq 'HASH';
     @$hash{ keys %$imp } = values %$imp;
     return '';
 }
 
-sub hash_sort {
+sub _hash_sort {
     my ($hash) = @_;
     [ sort { lc $hash->{$a} cmp lc $hash->{$b} } (keys %$hash) ];
 }
 
-sub hash_nsort {
+sub _hash_nsort {
     my ($hash) = @_;
     [ sort { $hash->{$a} <=> $hash->{$b} } (keys %$hash) ];
 }
 
-sub list_item {
+sub _list_item {
     $_[0]->[ $_[1] || 0 ];
 }
 
-sub list_list { 
+sub _list_list { 
     $_[0];
 }
 
-sub list_hash { 
+sub _list_hash { 
     my $list = shift;
     if (@_) {
         my $n = shift || 0;
@@ -347,71 +347,71 @@ sub list_hash {
     return { @$list };
 }
 
-sub list_push {
+sub _list_push {
     my $list = shift; 
     push(@$list, @_); 
     return '';
 }
 
-sub list_pop {
+sub _list_pop {
     my $list = shift; 
     pop(@$list);
 }
 
-sub list_unshift {
+sub _list_unshift {
     my $list = shift; 
     unshift(@$list, @_); 
     return '';
 }
 
-sub list_shift {
+sub _list_shift {
     my $list = shift; 
     shift(@$list);
 }
 
-sub list_max {
+sub _list_max {
     no warnings;
     my $list = shift; 
     $#$list; 
 }
 
-sub list_size {
+sub _list_size {
     no warnings;
     my $list = shift; 
     $#$list + 1; 
 }
 
-sub list_defined {
+sub _list_defined {
     # return the item requested, or 1 if no argument to 
     # indicate that the hash itself is defined
     my $list = shift;
     return @_ ? defined $list->[$_[0]] : 1;
 }
 
-sub list_first {
+sub _list_first {
     my $list = shift;
     return $list->[0] unless @_;
     return [ @$list[0..$_[0]-1] ];
 }
 
-sub list_last {
+sub _list_last {
     my $list = shift;
     return $list->[-1] unless @_;
     return [ @$list[-$_[0]..-1] ];
 }
 
-sub list_reverse {
+sub _list_reverse {
     my $list = shift; 
     [ reverse @$list ];
 }
 
-sub list_grep {
+sub _list_grep {
     my ($list, $pattern) = @_;
     $pattern ||= '';
     return [ grep /$pattern/, @$list ];
 }
 
-sub list_join {
+sub _list_join {
     my ($list, $joint) = @_; 
     join(defined $joint ? $joint : ' ', 
          map { defined $_ ? $_ : '' } @$list);
@@ -436,7 +436,7 @@ sub _list_sort_make_key {
    return lc join('/*^UNLIKELY^*/', map { defined $_ ? $_ : '' } @keys);
 }
 
-sub list_sort {
+sub _list_sort {
     my ($list, @fields) = @_;
     return $list unless @$list > 1;         # no need to sort 1 item lists
     return [ 
@@ -452,7 +452,7 @@ sub list_sort {
     ];
 }
 
-sub list_nsort {
+sub _list_nsort {
     my ($list, @fields) = @_;
     return $list unless @$list > 1;     # no need to sort 1 item lists
     return [ 
@@ -468,23 +468,23 @@ sub list_nsort {
     ];
 }
 
-sub list_unique {
+sub _list_unique {
     my %u; 
     [ grep { ++$u{$_} == 1 } @{$_[0]} ];
 }
 
-sub list_import {
+sub _list_import {
     my $list = shift;
     push(@$list, grep defined, map ref eq 'ARRAY' ? @$_ : undef, @_);
     return $list;
 }
 
-sub list_merge {
+sub _list_merge {
     my $list = shift;
     return [ @$list, grep defined, map ref eq 'ARRAY' ? @$_ : undef, @_ ];
 }
 
-sub list_slice {
+sub _list_slice {
     my ($list, $from, $to) = @_;
     $from ||= 0;
     $to    = $#$list unless defined $to;
@@ -493,7 +493,7 @@ sub list_slice {
     return [ @$list[$from..$to] ];
 }
 
-sub list_splice {
+sub _list_splice {
     my ($list, $offset, $length, @replace) = @_;
     if (@replace) {
         # @replace can contain a list of multiple replace items, or 
@@ -513,7 +513,7 @@ sub list_splice {
     }
 }
 
-sub xml_filter {
+sub _xml_filter {
     my $text = shift;
     for ($text) {
         s/&/&amp;/g;
@@ -525,26 +525,26 @@ sub xml_filter {
     return $text;
 }
 
-sub html_paragraph  {
+sub _html_paragraph  {
     my $text = shift;
     return "<p>\n" 
            . join("\n</p>\n\n<p>\n", split(/(?:\r?\n){2,}/, $text))
            . "</p>\n";
 }
 
-sub html_para_break  {
+sub _html_para_break  {
     my $text = shift;
     $text =~ s|(\r?\n){2,}|$1<br />$1<br />$1|g;
     return $text;
 }
 
-sub html_line_break  {
+sub _html_line_break  {
     my $text = shift;
     $text =~ s|(\r?\n)|<br />$1|g;
     return $text;
 }
 
-sub indent_filter_factory {
+sub _indent_filter_factory {
     my ($pad) = @_;
     $pad = 4 unless defined $pad;
     $pad = ' ' x $pad if $pad =~ /^\d+$/;
@@ -557,7 +557,7 @@ sub indent_filter_factory {
     }
 }
 
-sub format_filter_factory {
+sub _format_filter_factory {
     my ($format) = @_;
     $format = '%s' unless defined $format;
 
@@ -568,7 +568,7 @@ sub format_filter_factory {
     }
 }
 
-sub truncate_filter_factory {
+sub _truncate_filter_factory {
     my ($len, $char) = @_;
     $len  = $TRUNCATE_LENGTH unless defined $len;
     $char = $TRUNCATE_ADDON  unless defined $char;
@@ -587,7 +587,7 @@ sub truncate_filter_factory {
     }
 }
 
-sub repeat_filter_factory {
+sub _repeat_filter_factory {
     my ($iter) = @_;
     $iter = 1 unless defined $iter and length $iter;
 
@@ -598,7 +598,7 @@ sub repeat_filter_factory {
     }
 }
 
-sub replace_filter_factory {
+sub _replace_filter_factory {
     my ($search, $replace) = @_;
     $search = '' unless defined $search;
     $replace = '' unless defined $replace;
@@ -611,7 +611,7 @@ sub replace_filter_factory {
     }
 }
 
-sub remove_filter_factory {
+sub _remove_filter_factory {
     my ($search) = @_;
 
     return sub {
@@ -623,57 +623,3 @@ sub remove_filter_factory {
 }
 
 1;
-
-__END__
-
-=head1 NAME
-
-Text::Xslate::Bridge::TT2Like - TT2 Variable Method Clone For Text::Xslate
-
-=head1 SYNOPSIS
-
-    use Text::Xslate;
-
-    my $xslate = Text::Xslate->new(
-        module => [
-            'Text::Xslate::Bridge::TT2Like'
-        ],
-    );
-
-    # Note that all methods require a set of parenthesis to be
-    # recognized as a method.
-    $xslate->render_string(
-        '<: $foo.length() :>',
-        { foo => "foo" }
-    );
-
-    $xslate->render_string(
-        '<: $foo.replace("foo", "bar") :>',
-        { foo => "foo" }
-    );
-
-=head1 DESCRIPTION
-
-Text::Xslate::Bridge::TT2Like exports Template-Toolkit variable methods into
-Text::Xslate namespace, such that you can use them on your variables.
-
-The only difference between this module and Text::Xslate::Bridge::TT2 is that
-Bridge::TT2 uses Template::Toolkit underneath, while this module is independent
-of Template::Toolkit and therefore does not require TT to be installed
-
-=head1 ACKNOWLEDGEMENT
-
-Original code was taken from Template::VMethods, Template::Filters by Andy Wardley.
-
-=head1 AUTHOR
-
-Copyright (c) 2010 Daisuke Maki C<< <daisuke@endeworks.jp> >>
-
-=head1 LICENSE 
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-See http://www.perl.com/perl/misc/Artistic.html
-
-=cut

@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.00006 - 3 Sep 2010
+    * Rename the functions so that they are private
+    * Split up the .pm file and the .pod file so I can auto-generate 
+      the list of functions that are available.
+      (request for the list of functions by gfx)
+    * Add pod tests
+
 0.00005 - 9 Aug 2010
     * Add truncate() filter.
 

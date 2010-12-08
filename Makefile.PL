@@ -7,6 +7,7 @@ requires 'Text::Xslate' => '0.1052';
 requires 'Scalar::Util';
 author_tests 'xt';
 
+no_index 'directory' => 'src';
 WriteAll;
 
 if ($Module::Install::AUTHOR) {

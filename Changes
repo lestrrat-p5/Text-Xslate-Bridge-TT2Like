@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00007 - 4 Sep 2010
+    * Grrrr, fight against PAUSE indexer.
+    * No code changes
+
 0.00006 - 3 Sep 2010
     * Rename the functions so that they are private
     * Split up the .pm file and the .pod file so I can auto-generate 

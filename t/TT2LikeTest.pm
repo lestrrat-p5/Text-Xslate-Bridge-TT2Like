@@ -22,6 +22,10 @@ sub render_xslate {
         hashmap => {
             abc => "def",
             ghi => "jkl",
+            list => [
+                { list_foo1 => "list_bar1" },
+                { list_foo2 => "list_bar2" }
+            ]
         }
     };
     $XSLATE->render_string( $template, $args ),
@@ -30,9 +34,17 @@ sub render_xslate {
 sub render_ok {
     my ($template, $args, $expect, $name) = @_;
 
-
     local $Test::Builder::Level = $Test::Builder::Level + 1;
-    Test::More::is(
+    my $ref = ref $expect;
+    if (! $ref ) {
+        $func = \&Test::More::is;
+    } elsif ( $ref =~ /^Reg[Ee]xp$/ ) {
+        $func = \&Test::More::like;
+    } else {
+        die "Don't know how to handle expect type $ref";
+    }
+
+    $func->(
         render_xslate( $template, $args ),
         $expect,
         $name

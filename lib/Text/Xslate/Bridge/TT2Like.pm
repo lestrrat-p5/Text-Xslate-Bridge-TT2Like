@@ -72,11 +72,11 @@ __PACKAGE__->bridge(
     },
     function => {
         # 'html'            => \&_html_filter, # Xslate has builtin filter for html escape, and it is not overridable.
-        html_para       => \&_html_paragraph,
-        html_break      => \&_html_para_break,
-        html_para_break => \&_html_para_break,
-        html_line_break => \&_html_line_break,
-        xml             => \&_xml_filter,
+        html_para       => Text::Xslate::html_builder(\&_html_paragraph),
+        html_break      => Text::Xslate::html_builder(\&_html_para_break),
+        html_para_break => Text::Xslate::html_builder(\&_html_para_break),
+        html_line_break => Text::Xslate::html_builder(\&_html_line_break),
+        xml             => Text::Xslate::html_builder(\&_xml_filter),
         # 'uri'             => \&uri_escape, # builtin from version 0.1052
         url             => \&Text::Xslate::uri_escape,
         upper           => sub { uc $_[0] },

@@ -7,14 +7,14 @@ use_ok "Text::Xslate::Bridge::TT2Like";
 
 # note(Text::Xslate::Bridge::TT2Like->dump);
 
-render_ok q{[% "foo\n\nbar" | html_para | mark_raw %]}, undef, "<p>\nfoo\n</p>\n\n<p>\nbar</p>\n";
-render_ok q{[% "foo\n\nbar" | html_para | mark_raw %]}, undef, "<p>\nfoo\n</p>\n\n<p>\nbar</p>\n";
-render_ok q{[% "foo\n\nbar" | html_break | mark_raw %]}, undef, "foo\n<br />\n<br />\nbar";
-render_ok q{[% "foo\n\nbar" | html_para_break | mark_raw %]}, undef, "foo\n<br />\n<br />\nbar";
-render_ok q{[% "foo\n\nbar" | html_line_break | mark_raw %]}, undef, "foo<br />\n<br />\nbar";
-render_ok q{[% "&'" | xml  | mark_raw %]}, undef, "&amp;&apos;";
-render_ok q{[% "my file.html" | uri  | mark_raw %]}, undef, "my%20file.html";
-render_ok q{[% "my file.html" | url  | mark_raw %]}, undef, "my%20file.html";
+render_ok q{[% "foo\n\nbar" | html_para %]}, undef, "<p>\nfoo\n</p>\n\n<p>\nbar</p>\n";
+render_ok q{[% "foo\n\nbar" | html_para %]}, undef, "<p>\nfoo\n</p>\n\n<p>\nbar</p>\n";
+render_ok q{[% "foo\n\nbar" | html_break %]}, undef, "foo\n<br />\n<br />\nbar";
+render_ok q{[% "foo\n\nbar" | html_para_break %]}, undef, "foo\n<br />\n<br />\nbar";
+render_ok q{[% "foo\n\nbar" | html_line_break %]}, undef, "foo<br />\n<br />\nbar";
+render_ok q{[% "&'" | xml  %]}, undef, "&amp;&apos;";
+render_ok q{[% "my file.html" | uri  %]}, undef, "my%20file.html";
+render_ok q{[% "my file.html" | url  %]}, undef, "my%20file.html";
 render_ok '[% "foo" | upper %]', undef, "FOO", "foo.uc";
 render_ok '[% "fOo" | lower %]', undef, "foo", "foo.lc";
 render_ok '[% "foo" | ucfirst %]', undef, "Foo";

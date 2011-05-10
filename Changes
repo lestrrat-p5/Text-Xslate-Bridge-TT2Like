@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00008 - 11 May 2011
+    * Now html_* and xml filters return strings that are prorperly
+      marked as raw via Text::Xslate::html_builder()
+      (http://cpanbook.koneta.org/post/5361569358)
+
 0.00007 - 4 Sep 2010
     * Grrrr, fight against PAUSE indexer.
     * No code changes

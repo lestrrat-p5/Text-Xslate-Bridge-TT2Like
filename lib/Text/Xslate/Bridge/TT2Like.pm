@@ -528,18 +528,20 @@ sub _xml_filter {
 sub _html_paragraph  {
     my $text = shift;
     return "<p>\n" 
-           . join("\n</p>\n\n<p>\n", split(/(?:\r?\n){2,}/, $text))
+           . join("\n</p>\n\n<p>\n", split(/(?:\r?\n){2,}/, Text::Xslate::Util::html_escape($text)))
            . "</p>\n";
 }
 
 sub _html_para_break  {
     my $text = shift;
+    $text = Text::Xslate::Util::html_escape($text);
     $text =~ s|(\r?\n){2,}|$1<br />$1<br />$1|g;
     return $text;
 }
 
 sub _html_line_break  {
     my $text = shift;
+    $text = Text::Xslate::Util::html_escape($text);
     $text =~ s|(\r?\n)|<br />$1|g;
     return $text;
 }

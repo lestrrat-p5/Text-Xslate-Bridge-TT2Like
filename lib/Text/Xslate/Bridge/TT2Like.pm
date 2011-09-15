@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use base qw(Text::Xslate::Bridge);
 
-our $VERSION = '0.00008';
+our $VERSION = '0.00010';
 
 use Scalar::Util 'blessed';
 use Text::Xslate;

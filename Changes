@@ -1,6 +1,22 @@
 Changes
 =======
 
+0.00010 - 15 Sep 2011
+    * Release solely to fix this Change log
+    * Require Text::Xsate 1.3000 (suggested by nihen)
+    * Changes that went in 0.0009, but had completely escaped my memory:
+        * These filters now *ESCAPE* html before doing their magic
+            html_para
+            html_break
+            html_para_break
+            html_line_break
+
+0.00009 - 15 Sep 2011
+    * XXX INITIALLY THIS RELEASE WAS DESCRIVED AS "NO CHANGES", BUT
+      THERE WERE CHANGES. SEE 0.00010 ABOVE
+    * Add t/005_xss.t to validate we're safe from potential xss attacks
+      [https://github.com/lestrrat/Text-Xslate-Bridge-TT2Like/pull/1] (gfx)
+
 0.00008 - 11 May 2011
     * Now html_* and xml filters return strings that are prorperly
       marked as raw via Text::Xslate::html_builder()
